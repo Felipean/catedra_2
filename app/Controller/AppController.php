@@ -33,13 +33,23 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
    public $components = array(
-        'Session',
-        'Auth' => array(
-            'loginRedirect' => array('controller' => 'users', 'action' => 'index'),
-            'logoutRedirect' => array('controller' => 'users', 'action' => 'login')
+        
+    'Session',
+    'Auth' => array(
+      'loginRedirect' => array('controller' => 'users', 'action' => 'index'),
+      'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
+      
+      'authenticate' => array(
+        'Form' => array(
+          'fields' => array('username' => 'email')
         )
-    );
+      )
+    )
+  );
 
-    public function beforeFilter() {
-        $this->Auth->allow('index', 'view');
-    }}
+  public function beforeFilter() {
+    parent::beforeFilter();
+    $this->set('authUser', $this->Auth->user());
+  }
+
+}
