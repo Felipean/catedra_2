@@ -18,8 +18,12 @@ public function login() {
         if ($this->Auth->login()) {
             return $this->redirect($this->Auth->redirect());
         }
-        $this->Session->setFlash(__('Invalid username or password, try again'));
-    }
+        $this->Session->setFlash(__('Invalid users or password, try again'));
+    }else{
+	if($this->Auth->user('id')){
+	$this->redirect($this->Auth->redirect());
+	}
+	}
 }
 
 public function logout() {
