@@ -13,10 +13,12 @@ class UsersController extends AppController {
  *
  * @var array
  */
+ 
+	
         public $components = array('Paginator');
 
-        public function beforeFilter() {
-    parent::beforeFilter();
+        public function index() {
+    parent::index();
     $this->Auth->allow('register');
   }
 
@@ -24,7 +26,7 @@ class UsersController extends AppController {
         public function login() {
           if ($this->request->is('post')) {
       if ($this->Auth->login()) {
-        return $this->redirect($this->Auth->redirectUrl());
+        return $this->redirect($this->Auth->redirect());
       } else {
         $this->Session->setFlash(__('Username or password is incorrect'), 'default', array(), 'auth');
       }
